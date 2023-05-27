@@ -7,13 +7,22 @@
         </span>
     </div>
     <label for="fileInput" class="form-drop-message" [class.hidden]="uploadedFiles.length > 0">
-        <i class=" ri-upload-cloud-2-fill text-primary"></i>
+        <i class="ri-upload-cloud-2-fill text-primary"></i>
         <div class="mr-2 m-auto">
             <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drag or upload the files</h3>
-            <span class="fs-7 fw-semibold text-primary opacity-75">Up to 10 files: JPEG, JPG, PNG</span>
+            <ng-container *ngIf="config.maxFiles !== 'noRule'">
+                <span class="fs-7 fw-semibold text-primary opacity-75">
+                    Up to {{ config.maxFiles || '10' }} files
+                </span>
+            </ng-container>
+            <ng-container *ngIf="config.maxFiles !== 'noRule' && config.allowedFileTypes !== 'noRule'">
+                :
+            </ng-container>
+            <ng-container *ngIf="config.allowedFileTypes !== 'noRule'">
+                {{ getFileTypeText(config.allowedFileTypes) }}
+            </ng-container>
         </div>
     </label>
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" #fileInput multiple hidden>
     <ng-container *ngIf="uploadedFiles.length > 0">
         <div *ngFor="let file of uploadedFiles" class="form-drop-preview">
             <div class="image">
@@ -36,6 +45,7 @@
             </div>
         </div>
     </ng-container>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" #fileInput multiple hidden>
 </div>
 <div class="alert-container drop-error" [class.show]="hasError">
     <div class="alert-inner alert-lg error">

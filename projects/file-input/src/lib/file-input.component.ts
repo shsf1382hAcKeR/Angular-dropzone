@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 
 interface UploadedFile {
   imageUrl: string;
@@ -12,6 +12,7 @@ interface UploadedFile {
   styleUrls: ['./file-input.component.css'],
 })
 export class FileInputComponent {
+  @Input() config: any = {}; // Configuration object for options
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible: boolean = false;
   uploadedFiles: UploadedFile[] = [];
@@ -31,23 +32,35 @@ export class FileInputComponent {
 
   // Public methods
   processFiles(files: FileList) {
-    if (files.length > 10) {
-      this.showError('تنها 10 فایل می توانید آپلود کنید.');
+    const maxFiles =
+      this.config.maxFiles === 'noRule' ? Infinity : this.config.maxFiles || 10;
+    const allowedFileTypes =
+      this.config.allowedFileTypes === 'noRule'
+        ? []
+        : this.config.allowedFileTypes || [];
+    const maxSize =
+      this.config.maxSize === 'noRule' ? Infinity : this.config.maxSize || '2'; // Default max size: 2MB
+
+    if (files.length > maxFiles) {
+      this.showError(`Only ${maxFiles} files can be uploaded.`);
       return;
     }
 
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
-      const fileType = file.type;
+      const fileType = this.getFileExtension(file.name);
 
-      if (!fileType.match(/image\/(jpeg|jpg|png)/)) {
-        this.showError(`فایل "${file.name}" آپلود نشد: فرمت فایل معتبر نیست.`);
+      if (
+        allowedFileTypes.length > 0 &&
+        !allowedFileTypes.includes(fileType.toLowerCase())
+      ) {
+        this.showError(`Skipped the file "${file.name}": Invalid file type.`);
         continue;
       }
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file.size > +maxSize * 1024 * 1024) {
         this.showError(
-          `فایل "${file.name}" آپلود نشد: حجم فایل بیشتر از دو مگابایت است.`
+          `Skipped the file "${file.name}": File size exceeds the maximum limit of ${maxSize}MB.`
         );
         continue;
       }
@@ -60,6 +73,22 @@ export class FileInputComponent {
     }
 
     this.clearError();
+  }
+
+  getFileExtension(filename: string): string {
+    const extensionIndex = filename.lastIndexOf('.');
+    if (extensionIndex !== -1) {
+      return filename.slice(extensionIndex + 1);
+    }
+    return '';
+  }
+
+  getFileTypeText(allowedFileTypes: string[]): string {
+    if (allowedFileTypes && allowedFileTypes.length > 0) {
+      return allowedFileTypes.join(', ').toUpperCase();
+    } else {
+      return 'JPG, JPEG, PNG'; // Default extensions
+    }
   }
 
   onFileSelected(event: any) {
