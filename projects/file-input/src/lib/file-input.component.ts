@@ -35,8 +35,10 @@ export class FileInputComponent {
     const maxFiles =
       this.config.maxFiles === 'noRule' ? Infinity : this.config.maxFiles || 10;
     const allowedFileTypes =
-      this.config.allowedFileTypes === 'noRule'
-        ? []
+      this.config.allowedFileTypes === null
+        ? ['jpg', 'jpeg', 'png'] // Default file types
+        : this.config.allowedFileTypes === 'noRule'
+        ? [] // Empty array to allow all file types
         : this.config.allowedFileTypes || [];
     const maxSize =
       this.config.maxSize === 'noRule' ? Infinity : this.config.maxSize || '2'; // Default max size: 2MB
@@ -46,6 +48,8 @@ export class FileInputComponent {
       return;
     }
 
+    const defaultFileTypes = ['jpg', 'jpeg', 'png']; // Default file types
+
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
       const fileType = this.getFileExtension(file.name);
@@ -54,7 +58,14 @@ export class FileInputComponent {
         allowedFileTypes.length > 0 &&
         !allowedFileTypes.includes(fileType.toLowerCase())
       ) {
-        this.showError(`Skipped the file "${file.name}": Invalid file type.`);
+        if (
+          this.config.allowedFileTypes === null &&
+          !defaultFileTypes.includes(fileType.toLowerCase())
+        ) {
+          this.showError(`Skipped the file "${file.name}": Invalid file type.`);
+        } else {
+          this.showError(`Skipped the file "${file.name}": Invalid file type.`);
+        }
         continue;
       }
 
@@ -112,8 +123,14 @@ export class FileInputComponent {
           ? (file.size / 1024 / 1024).toFixed(2) + ' MB'
           : (file.size / 1024).toFixed(2) + ' KB';
 
+      const fileType = this.getFileType(file);
+
+      const defaultImage =
+        this.config.defaultImage ||
+        'https://i.pinimg.com/736x/04/54/7c/04547c2b354abb70a85ed8a2d1b33e5f.jpg';
+
       const uploadedFile: UploadedFile = {
-        imageUrl,
+        imageUrl: fileType === 'image' ? imageUrl : defaultImage,
         size,
         name: file.name,
       };
@@ -122,6 +139,13 @@ export class FileInputComponent {
     };
 
     reader.readAsDataURL(file);
+  }
+
+  getFileType(file: File): 'image' | 'non-image' {
+    const fileType = this.getFileExtension(file.name).toLowerCase();
+    return fileType === 'png' || fileType === 'jpg' || fileType === 'jpeg'
+      ? 'image'
+      : 'non-image';
   }
 
   deleteFile(file: UploadedFile) {

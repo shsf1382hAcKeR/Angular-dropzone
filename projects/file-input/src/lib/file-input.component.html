@@ -15,7 +15,8 @@
                     Up to {{ config.maxFiles || '10' }} files
                 </span>
             </ng-container>
-            <ng-container *ngIf="config.maxFiles !== 'noRule' && config.allowedFileTypes !== 'noRule'">
+            <ng-container
+                *ngIf="config.maxFiles !== 'noRule' && config.allowedFileTypes !== 'noRule' && config.allowedFileTypes !== null">
                 :
             </ng-container>
             <ng-container *ngIf="config.allowedFileTypes !== 'noRule'">
