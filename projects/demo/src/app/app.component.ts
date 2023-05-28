@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'demo';
   fileInputConfig: any = {
-    maxFiles: 'noRule',
+    // maxFiles: 'noRule',
     // allowedFileTypes: ['pdf'],
-    allowedFileTypes: 'noRule',
+    // allowedFileTypes: 'noRule',
     maxSize: '3',
     defaultImage: 'https://cdn-icons-png.flaticon.com/512/6583/6583130.png',
   };
