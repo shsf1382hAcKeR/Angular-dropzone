@@ -1,10 +1,5 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-
-interface UploadedFile {
-  imageUrl: string;
-  size: string;
-  name: string;
-}
+import { FileProcessingService, UploadedFile } from './file-input.service';
 
 @Component({
   selector: 'app-file-input',
@@ -19,6 +14,8 @@ export class FileInputComponent {
   hasError: boolean = false;
   errorMessage: string = '';
 
+  constructor(private fileProcessingService: FileProcessingService) {}
+
   // Helper methods for error handling
   showError(message: string) {
     this.hasError = true;
@@ -31,59 +28,19 @@ export class FileInputComponent {
   }
 
   // Public methods
-  processFiles(files: FileList) {
-    const maxFiles =
-      this.config.maxFiles === 'noRule' ? Infinity : this.config.maxFiles || 10;
-    const allowedFileTypes =
-      this.config.allowedFileTypes === null
-        ? ['jpg', 'jpeg', 'png'] // Default file types
-        : this.config.allowedFileTypes === 'noRule'
-        ? [] // Empty array to allow all file types
-        : this.config.allowedFileTypes || [];
-    const maxSize =
-      this.config.maxSize === 'noRule' ? Infinity : this.config.maxSize || '2'; // Default max size: 2MB
+  async processFiles(files: FileList) {
+    try {
+      const processedFiles = await this.fileProcessingService.processFiles(
+        files,
+        this.config
+      );
+      this.uploadedFiles = [];
+      this.clearError();
 
-    if (files.length > maxFiles) {
-      this.showError(`Only ${maxFiles} files can be uploaded.`);
-      return;
+      this.uploadedFiles = processedFiles;
+    } catch (error: any) {
+      this.showError(error.message);
     }
-
-    const defaultFileTypes = ['jpg', 'jpeg', 'png']; // Default file types
-
-    for (let i = 0; i < files.length; i++) {
-      const file: File = files[i];
-      const fileType = this.getFileExtension(file.name);
-
-      if (
-        allowedFileTypes.length > 0 &&
-        !allowedFileTypes.includes(fileType.toLowerCase())
-      ) {
-        if (
-          this.config.allowedFileTypes === null &&
-          !defaultFileTypes.includes(fileType.toLowerCase())
-        ) {
-          this.showError(`Skipped the file "${file.name}": Invalid file type.`);
-        } else {
-          this.showError(`Skipped the file "${file.name}": Invalid file type.`);
-        }
-        continue;
-      }
-
-      if (file.size > +maxSize * 1024 * 1024) {
-        this.showError(
-          `Skipped the file "${file.name}": File size exceeds the maximum limit of ${maxSize}MB.`
-        );
-        continue;
-      }
-
-      this.previewFile(file);
-    }
-
-    if (this.hasError) {
-      return;
-    }
-
-    this.clearError();
   }
 
   getFileExtension(filename: string): string {
@@ -112,40 +69,6 @@ export class FileInputComponent {
     setTimeout(() => {
       this.fileInput.nativeElement.click();
     }, 0);
-  }
-
-  previewFile(file: File) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const imageUrl = event.target?.result as string;
-      const size =
-        file.size > 1024 * 1024
-          ? (file.size / 1024 / 1024).toFixed(2) + ' MB'
-          : (file.size / 1024).toFixed(2) + ' KB';
-
-      const fileType = this.getFileType(file);
-
-      const defaultImage =
-        this.config.defaultImage ||
-        'https://i.pinimg.com/736x/04/54/7c/04547c2b354abb70a85ed8a2d1b33e5f.jpg';
-
-      const uploadedFile: UploadedFile = {
-        imageUrl: fileType === 'image' ? imageUrl : defaultImage,
-        size,
-        name: file.name,
-      };
-      this.clearError();
-      this.uploadedFiles.push(uploadedFile);
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  getFileType(file: File): 'image' | 'non-image' {
-    const fileType = this.getFileExtension(file.name).toLowerCase();
-    return fileType === 'png' || fileType === 'jpg' || fileType === 'jpeg'
-      ? 'image'
-      : 'non-image';
   }
 
   deleteFile(file: UploadedFile) {
