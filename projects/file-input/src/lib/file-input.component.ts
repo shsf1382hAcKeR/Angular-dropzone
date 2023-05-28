@@ -7,7 +7,7 @@ import { FileProcessingService, UploadedFile } from './file-input.service';
   styleUrls: ['./file-input.component.css'],
 })
 export class FileInputComponent {
-  @Input() config: any = {}; // Configuration object for options
+  @Input() config: any = {};
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible = false;
   uploadedFiles: UploadedFile[] = [];
@@ -16,22 +16,32 @@ export class FileInputComponent {
 
   constructor(private fileProcessingService: FileProcessingService) {}
 
-  // Helper method for error handling
   showError(message: string) {
     this.hasError = true;
     this.errorMessage = message;
   }
 
-  // Public method
   async processFiles(files: FileList) {
     try {
+      const existingFileNames: string[] = this.uploadedFiles.map(
+        (file) => file.name
+      );
+
+      for (let i = 0; i < files.length; i++) {
+        const file: File = files[i];
+
+        if (existingFileNames.includes(file.name)) {
+          throw new Error('The file is already uploaded!');
+        }
+      }
+
       const processedFiles = await this.fileProcessingService.processFiles(
         files,
         this.config
       );
       this.uploadedFiles = [...this.uploadedFiles, ...processedFiles];
-      this.hasError = false; // Clear the error flag
-      this.errorMessage = ''; // Clear the error message
+      this.hasError = false;
+      this.errorMessage = '';
     } catch (error: any) {
       this.showError(error.message);
     }
@@ -41,7 +51,7 @@ export class FileInputComponent {
     if (allowedFileTypes && allowedFileTypes.length > 0) {
       return allowedFileTypes.join(', ').toUpperCase();
     } else {
-      return 'JPG, JPEG, PNG'; // Default extensions
+      return 'JPG, JPEG, PNG';
     }
   }
 
@@ -79,7 +89,7 @@ export class FileInputComponent {
     event.preventDefault();
     event.stopPropagation();
     const rect = event.target.getBoundingClientRect();
-    // Check if the mouse pointer is outside the element boundaries
+
     if (
       event.clientX < rect.left ||
       event.clientX >= rect.right ||
@@ -90,7 +100,6 @@ export class FileInputComponent {
     }
   }
 
-  // Event handler for the drop event
   onDrop(event: any) {
     event.preventDefault();
     event.stopPropagation();

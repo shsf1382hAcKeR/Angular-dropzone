@@ -10,6 +10,8 @@ export interface UploadedFile {
   providedIn: 'root',
 })
 export class FileProcessingService {
+  private uploadedFileNames: string[] = []; // Maintain a list of uploaded file names
+
   constructor() {}
 
   async processFiles(files: FileList, config: any): Promise<UploadedFile[]> {
@@ -43,6 +45,11 @@ export class FileProcessingService {
         throw new Error(
           `Skipped the file "${file.name}": File size exceeds the maximum limit of ${maxSize}MB.`
         );
+      }
+
+      // Check if the file has already been uploaded
+      if (this.isUploadedFile(file.name)) {
+        throw new Error(`The file "${file.name}" is already uploaded.`);
       }
 
       const uploadedFile = await this.previewFile(file, config.defaultImage);
@@ -90,10 +97,19 @@ export class FileProcessingService {
         };
         resolve(uploadedFile);
       };
-      reader.onerror = (event) => {
-        reject(new Error('Error occurred while reading the file.'));
-      };
+      reader.onerror = (event) => reject(event.target?.error);
       reader.readAsDataURL(file);
     });
+  }
+
+  removeUploadedFileName(filename: string) {
+    const index = this.uploadedFileNames.indexOf(filename);
+    if (index !== -1) {
+      this.uploadedFileNames.splice(index, 1);
+    }
+  }
+
+  private isUploadedFile(filename: string): boolean {
+    return this.uploadedFileNames.includes(filename);
   }
 }
