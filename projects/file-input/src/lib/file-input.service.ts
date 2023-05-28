@@ -15,20 +15,17 @@ export class FileProcessingService {
   async processFiles(files: FileList, config: any): Promise<UploadedFile[]> {
     const maxFiles =
       config.maxFiles === 'noRule' ? Infinity : config.maxFiles || 10;
-    const allowedFileTypes =
-      config.allowedFileTypes === null
-        ? ['jpg', 'jpeg', 'png'] // Default file types
-        : config.allowedFileTypes === 'noRule'
-        ? [] // Empty array to allow all file types
-        : config.allowedFileTypes || [];
+    const allowedFileTypes = !config.allowedFileTypes
+      ? ['jpg', 'jpeg', 'png']
+      : config.allowedFileTypes === 'noRule'
+      ? []
+      : config.allowedFileTypes;
     const maxSize =
       config.maxSize === 'noRule' ? Infinity : config.maxSize || '2'; // Default max size: 2MB
 
     if (files.length > maxFiles) {
       throw new Error(`Only ${maxFiles} files can be uploaded.`);
     }
-
-    const defaultFileTypes = ['jpg', 'jpeg', 'png']; // Default file types
     const processedFiles: UploadedFile[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -39,18 +36,7 @@ export class FileProcessingService {
         allowedFileTypes.length > 0 &&
         !allowedFileTypes.includes(fileType.toLowerCase())
       ) {
-        if (
-          config.allowedFileTypes === null &&
-          !defaultFileTypes.includes(fileType.toLowerCase())
-        ) {
-          throw new Error(
-            `Skipped the file "${file.name}": Invalid file type.`
-          );
-        } else {
-          throw new Error(
-            `Skipped the file "${file.name}": Invalid file type.`
-          );
-        }
+        throw new Error(`Skipped the file "${file.name}": Invalid file type.`);
       }
 
       if (file.size > +maxSize * 1024 * 1024) {
@@ -94,7 +80,11 @@ export class FileProcessingService {
         const fileType = this.getFileType(file);
 
         const uploadedFile: UploadedFile = {
-          imageUrl: fileType === 'image' ? imageUrl : defaultImage,
+          imageUrl:
+            fileType === 'image'
+              ? imageUrl
+              : defaultImage ||
+                'https://i.pinimg.com/736x/04/54/7c/04547c2b354abb70a85ed8a2d1b33e5f.jpg',
           size,
           name: file.name,
         };
