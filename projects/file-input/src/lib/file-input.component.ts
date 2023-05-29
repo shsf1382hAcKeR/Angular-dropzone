@@ -1,5 +1,9 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { FileProcessingService, UploadedFile } from './file-input.service';
+import {
+  FileProcessingService,
+  UploadedFile,
+  FileProcessingConfig,
+} from './file-input.service';
 
 @Component({
   selector: 'app-file-input',
@@ -7,7 +11,7 @@ import { FileProcessingService, UploadedFile } from './file-input.service';
   styleUrls: ['./file-input.component.css'],
 })
 export class FileInputComponent {
-  @Input() config: any = {};
+  @Input() config: FileProcessingConfig = {};
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible = false;
   uploadedFiles: UploadedFile[] = [];
@@ -35,7 +39,7 @@ export class FileInputComponent {
     }
   }
 
-  getFileTypeText(allowedFileTypes: string[]): string {
+  getFileTypeText(allowedFileTypes: string[] | undefined): string {
     if (allowedFileTypes && allowedFileTypes.length > 0) {
       return allowedFileTypes.join(', ').toUpperCase();
     } else {

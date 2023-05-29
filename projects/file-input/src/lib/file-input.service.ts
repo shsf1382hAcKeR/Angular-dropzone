@@ -6,6 +6,20 @@ export interface UploadedFile {
   name: string;
 }
 
+export interface FileProcessingConfig {
+  maxFiles?: number | 'noRule';
+  allowedFileTypes?: string[] | 'noRule';
+  maxSize?: number | 'noRule';
+  defaultImage?: string | undefined;
+}
+
+const defaultConfig: FileProcessingConfig = {
+  maxFiles: 10,
+  allowedFileTypes: ['jpg', 'jpeg', 'png'],
+  maxSize: 2,
+  defaultImage: undefined,
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,16 +28,23 @@ export class FileProcessingService {
 
   constructor() {}
 
-  async processFiles(files: FileList, config: any): Promise<UploadedFile[]> {
+  async processFiles(
+    files: FileList,
+    config: FileProcessingConfig = {}
+  ): Promise<UploadedFile[]> {
+    const mergedConfig: FileProcessingConfig = { ...defaultConfig, ...config };
+
     const maxFiles =
-      config.maxFiles === 'noRule' ? Infinity : config.maxFiles || 10;
-    const allowedFileTypes = !config.allowedFileTypes
+      mergedConfig.maxFiles === 'noRule'
+        ? Infinity
+        : mergedConfig.maxFiles || 10;
+    const allowedFileTypes = !mergedConfig.allowedFileTypes
       ? ['jpg', 'jpeg', 'png']
-      : config.allowedFileTypes === 'noRule'
+      : mergedConfig.allowedFileTypes === 'noRule'
       ? []
-      : config.allowedFileTypes;
+      : mergedConfig.allowedFileTypes;
     const maxSize =
-      config.maxSize === 'noRule' ? Infinity : config.maxSize || '2'; // Default max size: 2MB
+      mergedConfig.maxSize === 'noRule' ? Infinity : mergedConfig.maxSize || 2; // Default max size: 2MB
 
     if (files.length > maxFiles) {
       throw new Error(`Only ${maxFiles} files can be uploaded.`);
@@ -48,7 +69,7 @@ export class FileProcessingService {
         throw new Error(`Skipped the file "${file.name}": Invalid file type.`);
       }
 
-      if (file.size > +maxSize * 1024 * 1024) {
+      if (file.size > maxSize * 1024 * 1024) {
         throw new Error(
           `Skipped the file "${file.name}": File size exceeds the maximum limit of ${maxSize}MB.`
         );
@@ -58,9 +79,12 @@ export class FileProcessingService {
         throw new Error(`The file "${file.name}" is already uploaded.`);
       }
 
-      const uploadedFile = await this.previewFile(file, config.defaultImage);
+      const uploadedFile = await this.previewFile(
+        file,
+        mergedConfig.defaultImage
+      );
       processedFiles.push(uploadedFile);
-      this.uploadedFileNames.push(file.name); // Add uploaded file name to the list
+      this.uploadedFileNames.push(file.name);
     }
 
     return processedFiles;
@@ -81,7 +105,7 @@ export class FileProcessingService {
       : 'non-image';
   }
 
-  previewFile(file: File, defaultImage: string): Promise<UploadedFile> {
+  previewFile(file: File, defaultImage?: string): Promise<UploadedFile> {
     return new Promise<UploadedFile>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -97,8 +121,9 @@ export class FileProcessingService {
           imageUrl:
             fileType === 'image'
               ? imageUrl
-              : defaultImage ||
-                'https://i.pinimg.com/736x/04/54/7c/04547c2b354abb70a85ed8a2d1b33e5f.jpg',
+              : defaultImage
+              ? defaultImage
+              : 'https://i.pinimg.com/736x/04/54/7c/04547c2b354abb70a85ed8a2d1b33e5f.jpg',
           size,
           name: file.name,
         };
