@@ -1,24 +1,65 @@
-# FileInput
+# Angular DropZone
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+## Installation
+_Install the package using NPM._
+```bash
+npm i @shsf1382/file-input
+```
 
-## Code scaffolding
+## Usage/Examples
+### Adding the module
+Import the Module in your `app.module.ts` file:
+```javascript 
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-Run `ng generate component component-name --project file-input` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project file-input`.
-> Note: Don't forget to add `--project file-input` or else it will be added to the default project in your `angular.json` file. 
+import { FileInputModule } from '@shsf1382/file-input';
+// Import the module
 
-## Build
+import { AppComponent } from './app.component';
 
-Run `ng build file-input` to build the project. The build artifacts will be stored in the `dist/` directory.
+@NgModule({
+  declarations: [AppComponent],
+  
+  imports: [BrowserModule, FileInputModule],
+  // Import the module in "imports" as well
+  
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+### Adding the component
+Add the Component in your `app.component.html` file:
+```html 
+<app-file-input [config]="myFileInputConfig"></app-file-input>
+```
+_Note: You can add the attribute binding of `[config]` to configure the component's behavior through the `myFileInputConfig` object. You can name this object as you wish._
 
-## Publishing
+### Configuring the options of the component
+Configure the options in your `app.component.ts`:
+```javascript
+import { Component } from '@angular/core';
 
-After building your library with `ng build file-input`, go to the dist folder `cd dist/file-input` and run `npm publish`.
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
 
-## Running unit tests
+export class AppComponent {
+  myFileInputConfig: any = {
+    maxFiles: '2',
+    // Max files to be uploaded | Set to '10' by default
+    allowedFileTypes: ['pdf', 'jpg', 'png', 'jpeg'],
+    // Allowed file types | set to ['jpg', 'jpeg', 'png'] by default
+    maxSize: '10',
+    // Max size for upload in MB | Set to '2' by default
+    defaultImage: 'https://cdn-icons-png.flaticon.com/512/6583/6583130.png',
+    // Image to be dispalyed for non-image file types
+  };
+}
+```
+_Note: You can set the value of `maxFiles`, `allowedFileTypes` & `maxSize` to `'noRule'` to remove the default rulesets of the component._
 
-Run `ng test file-input` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### More Detailed Document Coming Soon...
