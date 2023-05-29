@@ -1,12 +1,14 @@
 # Angular DropZone
 
-## Installation
-_Install the package using NPM._
+## Getting Started
+
+### Installation
+Install the package using NPM.
 ```bash
-npm i @shsf1382/file-input
+npm install @shsf1382/file-input
 ```
 
-## Usage/Examples
+## Usage / Examples
 ### Adding the module
 Import the Module in your `app.module.ts` file:
 ```javascript 
@@ -51,15 +53,18 @@ export class AppComponent {
   myFileInputConfig: any = {
     maxFiles: '2',
     // Max files to be uploaded | Set to '10' by default
+
     allowedFileTypes: ['pdf', 'jpg', 'png', 'jpeg'],
-    // Allowed file types | set to ['jpg', 'jpeg', 'png'] by default
+    // Allowed file types | Set to ['jpg', 'jpeg', 'png'] by default
+
     maxSize: '10',
     // Max size for upload in MB | Set to '2' by default
+    
     defaultImage: 'https://example-url.com/example.png',
-    // Image to be dispalyed for non-image file types
+    // Image to be dispalyed for non-image file types | Set to a default image
   };
 }
 ```
-_Note: You can set the value of `maxFiles`, `allowedFileTypes` & `maxSize` to `'noRule'` to remove the default rulesets of the component._
+_Note: You can set the value of `maxFiles`, `allowedFileTypes` & `maxSize` to `'noRule'`. This will remove the default rulesets of the component._
 
 ### More Detailed Document Coming Soon...
