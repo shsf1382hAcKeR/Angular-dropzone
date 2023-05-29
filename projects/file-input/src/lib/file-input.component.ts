@@ -25,6 +25,11 @@ export class FileInputComponent {
     this.errorMessage = message;
   }
 
+  hideError() {
+    this.hasError = false;
+    this.errorMessage = '';
+  }
+
   async processFiles(files: FileList) {
     try {
       const processedFiles = await this.fileProcessingService.processFiles(
@@ -32,8 +37,7 @@ export class FileInputComponent {
         this.config
       );
       this.uploadedFiles = [...this.uploadedFiles, ...processedFiles];
-      this.hasError = false;
-      this.errorMessage = '';
+      this.hideError(); // Hide error message after successful upload
     } catch (error: any) {
       this.showError(error.message);
     }
@@ -64,6 +68,11 @@ export class FileInputComponent {
     if (index !== -1) {
       this.uploadedFiles.splice(index, 1);
       this.fileProcessingService.removeUploadedFileName(file.name);
+
+      // Hide error message if no uploaded files remaining
+      if (this.uploadedFiles.length === 0) {
+        this.hideError();
+      }
     }
   }
 

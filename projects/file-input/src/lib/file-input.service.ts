@@ -15,7 +15,7 @@ export interface FileProcessingConfig {
 
 const defaultConfig: FileProcessingConfig = {
   maxFiles: 10,
-  allowedFileTypes: ['jpg', 'jpeg', 'png'],
+  allowedFileTypes: undefined,
   maxSize: 2,
   defaultImage: undefined,
 };
@@ -38,11 +38,10 @@ export class FileProcessingService {
       mergedConfig.maxFiles === 'noRule'
         ? Infinity
         : mergedConfig.maxFiles || 10;
-    const allowedFileTypes = !mergedConfig.allowedFileTypes
-      ? ['jpg', 'jpeg', 'png']
-      : mergedConfig.allowedFileTypes === 'noRule'
-      ? []
-      : mergedConfig.allowedFileTypes;
+    const allowedFileTypes =
+      mergedConfig.allowedFileTypes === 'noRule'
+        ? []
+        : mergedConfig.allowedFileTypes || ['jpg', 'jpeg', 'png'];
     const maxSize =
       mergedConfig.maxSize === 'noRule' ? Infinity : mergedConfig.maxSize || 2; // Default max size: 2MB
 
