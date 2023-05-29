@@ -25,7 +25,7 @@
         </div>
     </label>
     <ng-container *ngIf="uploadedFiles.length > 0">
-        <div *ngFor="let file of uploadedFiles" class="form-drop-preview">
+        <div *ngFor="let file of uploadedFiles" class="form-drop-preview" [class.highlight]="file.isHighlighted">
             <div class="image">
                 <img [src]="file.imageUrl" [alt]="file.name">
             </div>

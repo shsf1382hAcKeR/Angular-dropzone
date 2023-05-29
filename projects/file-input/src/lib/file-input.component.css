@@ -270,6 +270,13 @@ tr {
     display: inline-block;
     vertical-align: top;
     min-height: 100px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-drop-preview.highlight {
+    border: 1px solid #e61515 !important;
+    box-shadow: 0 0 5px #fbd5d5;
 }
 
 .form-drop .form-drop-preview:hover .image img {

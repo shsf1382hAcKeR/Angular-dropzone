@@ -4,6 +4,7 @@ export interface UploadedFile {
   imageUrl: string;
   size: string;
   name: string;
+  isHighlighted?: boolean;
 }
 
 export interface FileProcessingConfig {
@@ -25,6 +26,8 @@ const defaultConfig: FileProcessingConfig = {
 })
 export class FileProcessingService {
   private uploadedFileNames: string[] = [];
+  private uploadedFiles: UploadedFile[] = [];
+  private highlightTimeouts: NodeJS.Timeout[] = [];
 
   constructor() {}
 
@@ -56,6 +59,18 @@ export class FileProcessingService {
     }
 
     const processedFiles: UploadedFile[] = [];
+    const deletedFileNames: string[] = [];
+
+    // Reset isHighlighted property for all uploaded files except the deleted ones
+    this.uploadedFiles.forEach((uploadedFile) => {
+      if (!deletedFileNames.includes(uploadedFile.name)) {
+        uploadedFile.isHighlighted = false;
+      }
+    });
+
+    // Clear previous highlight timeouts
+    this.highlightTimeouts.forEach((timeout) => clearTimeout(timeout));
+    this.highlightTimeouts = [];
 
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
@@ -74,16 +89,39 @@ export class FileProcessingService {
         );
       }
 
-      if (this.isUploadedFile(file.name)) {
-        throw new Error(`The file "${file.name}" is already uploaded.`);
-      }
-
-      const uploadedFile = await this.previewFile(
-        file,
-        mergedConfig.defaultImage
+      const uploadedFileIndex = this.uploadedFileNames.findIndex(
+        (name) => name === file.name
       );
-      processedFiles.push(uploadedFile);
-      this.uploadedFileNames.push(file.name);
+
+      if (uploadedFileIndex !== -1) {
+        const uploadedFile = this.uploadedFiles[uploadedFileIndex];
+
+        if (!deletedFileNames.includes(file.name)) {
+          uploadedFile.isHighlighted = true; // Set isHighlighted to true for already uploaded files
+
+          // Set a timeout to reset the isHighlighted property after 3 seconds (adjust as needed)
+          const timeoutId = setTimeout(() => {
+            uploadedFile.isHighlighted = false;
+
+            const timeoutIndex = this.highlightTimeouts.indexOf(timeoutId);
+            if (timeoutIndex !== -1) {
+              this.highlightTimeouts.splice(timeoutIndex, 1);
+            }
+          }, 1500);
+
+          this.highlightTimeouts.push(timeoutId);
+        } else {
+          continue; // Skip the file if it was uploaded and deleted previously
+        }
+      } else {
+        const uploadedFile = await this.previewFile(
+          file,
+          mergedConfig.defaultImage
+        );
+        processedFiles.push(uploadedFile); // Add new file to processedFiles
+        this.uploadedFileNames.push(file.name);
+        this.uploadedFiles.push(uploadedFile);
+      }
     }
 
     return processedFiles;
@@ -137,6 +175,7 @@ export class FileProcessingService {
     const index = this.uploadedFileNames.indexOf(filename);
     if (index !== -1) {
       this.uploadedFileNames.splice(index, 1);
+      this.uploadedFiles.splice(index, 1);
     }
   }
 
