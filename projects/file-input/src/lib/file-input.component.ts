@@ -23,18 +23,6 @@ export class FileInputComponent {
 
   async processFiles(files: FileList) {
     try {
-      const existingFileNames: string[] = this.uploadedFiles.map(
-        (file) => file.name
-      );
-
-      for (let i = 0; i < files.length; i++) {
-        const file: File = files[i];
-
-        if (existingFileNames.includes(file.name)) {
-          throw new Error('The file is already uploaded!');
-        }
-      }
-
       const processedFiles = await this.fileProcessingService.processFiles(
         files,
         this.config
@@ -71,6 +59,7 @@ export class FileInputComponent {
     const index = this.uploadedFiles.indexOf(file);
     if (index !== -1) {
       this.uploadedFiles.splice(index, 1);
+      this.fileProcessingService.removeUploadedFileName(file.name);
     }
   }
 
