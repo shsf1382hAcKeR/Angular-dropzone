@@ -1,4 +1,4 @@
-# FileInputPackage
+# Angular DropZone
 
 ### Installation
 
