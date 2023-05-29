@@ -10,7 +10,7 @@ export interface UploadedFile {
   providedIn: 'root',
 })
 export class FileProcessingService {
-  private uploadedFileNames: string[] = []; // Maintain a list of uploaded file names
+  private uploadedFileNames: string[] = [];
 
   constructor() {}
 
@@ -28,6 +28,13 @@ export class FileProcessingService {
     if (files.length > maxFiles) {
       throw new Error(`Only ${maxFiles} files can be uploaded.`);
     }
+
+    if (this.uploadedFileNames.length + files.length > maxFiles) {
+      throw new Error(
+        `Total number of files exceeds the maximum limit of ${maxFiles}.`
+      );
+    }
+
     const processedFiles: UploadedFile[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -47,13 +54,13 @@ export class FileProcessingService {
         );
       }
 
-      // Check if the file has already been uploaded
       if (this.isUploadedFile(file.name)) {
         throw new Error(`The file "${file.name}" is already uploaded.`);
       }
 
       const uploadedFile = await this.previewFile(file, config.defaultImage);
       processedFiles.push(uploadedFile);
+      this.uploadedFileNames.push(file.name); // Add uploaded file name to the list
     }
 
     return processedFiles;
