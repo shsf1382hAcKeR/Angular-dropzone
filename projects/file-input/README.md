@@ -55,7 +55,7 @@ export class AppComponent {
     // Allowed file types | set to ['jpg', 'jpeg', 'png'] by default
     maxSize: '10',
     // Max size for upload in MB | Set to '2' by default
-    defaultImage: 'https://cdn-icons-png.flaticon.com/512/6583/6583130.png',
+    defaultImage: 'https://example-url.com/example.png',
     // Image to be dispalyed for non-image file types
   };
 }
