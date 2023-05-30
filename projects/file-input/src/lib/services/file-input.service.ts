@@ -1,25 +1,9 @@
 import { Injectable } from '@angular/core';
+import { UploadedFile } from '../models/UploadedFile';
+import { FileProcessingConfig } from '../models/FileProcessingConfig';
+import { defaultConfig } from '../utils/DefaultConfig';
 
-export interface UploadedFile {
-  imageUrl: string;
-  size: string;
-  name: string;
-  isHighlighted?: boolean;
-}
-
-export interface FileProcessingConfig {
-  maxFiles?: number | 'noRule';
-  allowedFileTypes?: string[] | 'noRule';
-  maxSize?: number | 'noRule';
-  defaultImage?: string | undefined;
-}
-
-const defaultConfig: FileProcessingConfig = {
-  maxFiles: 10,
-  allowedFileTypes: undefined,
-  maxSize: 2,
-  defaultImage: undefined,
-};
+export { UploadedFile, FileProcessingConfig, defaultConfig };
 
 @Injectable({
   providedIn: 'root',
@@ -177,9 +161,5 @@ export class FileProcessingService {
       this.uploadedFileNames.splice(index, 1);
       this.uploadedFiles.splice(index, 1);
     }
-  }
-
-  private isUploadedFile(filename: string): boolean {
-    return this.uploadedFileNames.includes(filename);
   }
 }

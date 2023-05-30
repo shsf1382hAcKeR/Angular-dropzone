@@ -3,7 +3,7 @@ import {
   FileProcessingService,
   UploadedFile,
   FileProcessingConfig,
-} from './file-input.service';
+} from '../services/file-input.service';
 
 @Component({
   selector: 'app-file-input',
