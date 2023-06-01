@@ -1,16 +1,16 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import {
-  FileProcessingService,
+  AngularDropzoneService,
   UploadedFile,
   FileProcessingConfig,
-} from '../services/file-input.service';
+} from '../services/angular-dropzone.service';
 
 @Component({
-  selector: 'app-file-input',
-  templateUrl: './file-input.component.html',
-  styleUrls: ['./file-input.component.css'],
+  selector: 'angular-dropzone',
+  templateUrl: './angular-dropzone.component.html',
+  styleUrls: ['./angular-dropzone.component.css'],
 })
-export class FileInputComponent {
+export class AngularDropzoneComponent {
   @Input() config: FileProcessingConfig = {};
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible = false;
@@ -18,7 +18,7 @@ export class FileInputComponent {
   hasError = false;
   errorMessage = '';
 
-  constructor(private fileProcessingService: FileProcessingService) {}
+  constructor(private angularDropzoneService: AngularDropzoneService) {}
 
   showError(message: string) {
     this.hasError = true;
@@ -32,7 +32,7 @@ export class FileInputComponent {
 
   async processFiles(files: FileList) {
     try {
-      const processedFiles = await this.fileProcessingService.processFiles(
+      const processedFiles = await this.angularDropzoneService.processFiles(
         files,
         this.config
       );
@@ -67,7 +67,7 @@ export class FileInputComponent {
     const index = this.uploadedFiles.indexOf(file);
     if (index !== -1) {
       this.uploadedFiles.splice(index, 1);
-      this.fileProcessingService.removeUploadedFileName(file.name);
+      this.angularDropzoneService.removeUploadedFileName(file.name);
 
       // Hide error message if no uploaded files remaining
       if (this.uploadedFiles.length === 0) {

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileInputComponent } from './file-input.component';
+import { FileInputComponent } from './angular-dropzone.component';
 
 describe('FileInputComponent', () => {
   let component: FileInputComponent;
