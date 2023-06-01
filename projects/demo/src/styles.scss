@@ -1,1 +1,105 @@
-/* You can add global styles to this file, and also import other style files */
+/* RESET STYLES START */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-weight: normal;
+  overflow-x: hidden;
+  color: #000;
+}
+
+ul {
+  list-style-type: none;
+}
+
+span,
+label,
+strong,
+p,
+a,
+button,
+input,
+textarea,
+select {
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none !important;
+  color: #000;
+}
+
+input,
+textarea,
+button {
+  outline: none;
+  border: none;
+  font-family: inherit;
+  background: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+.text-primary {
+  color: #31afac !important;
+}
+
+/* RESET STYLES END */
+
+.container {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 2rem !important;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}

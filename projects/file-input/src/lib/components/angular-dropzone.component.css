@@ -1,185 +1,5 @@
-@import "RemixIcon/remixicon.css";
-@import "fonts.css";
-
-/* RESET STYLES START */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 62.5%;
-    -webkit-tap-highlight-color: transparent;
-}
-
-body {
-    font-size: 1.6rem;
-    font-family: Dana;
-    font-weight: normal;
-    overflow-x: hidden;
-    color: #000;
-    direction: rtl;
-}
-
-ul {
-    list-style-type: none;
-}
-
-span,
-label,
-strong,
-p,
-a,
-button,
-input,
-textarea,
-select {
-    line-height: 1.7;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: bold;
-}
-
-h1 {
-    font-size: 4rem;
-}
-
-h2 {
-    font-size: 3.5rem;
-}
-
-h3 {
-    font-size: 3rem;
-}
-
-h4 {
-    font-size: 2.5rem;
-}
-
-h5 {
-    font-size: 2rem;
-}
-
-h6 {
-    font-size: 1.5rem;
-}
-
-a {
-    text-decoration: none !important;
-    color: #000
-}
-
-img {
-    max-width: 100%;
-}
-
-input,
-textarea,
-button {
-    outline: none;
-    border: none;
-    font-family: inherit;
-    background: none;
-}
-
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-    -webkit-appearance: none;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-button,
-a {
-    cursor: pointer;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.dir-ltr {
-    direction: ltr;
-}
-
-.dir-rtl {
-    direction: rtl;
-}
-
-.text-primary {
-    color: #31afac !important;
-}
-
-.mb-2 {
-    margin-bottom: 2rem !important;
-}
-
-.mt-2 {
-    margin-top: 2rem !important;
-}
-
-.mr-2 {
-    margin-right: 2rem !important;
-}
-
-.ml-2 {
-    margin-left: 2rem !important;
-}
-
-.p-5 {
-    padding: 5rem;
-}
-
-.pl-0 {
-    padding-left: 0;
-}
-
-.inline-spacing {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.gray-500 {
-    color: #8a8eaa;
-}
-
-tbody,
-td,
-tfoot,
-th,
-thead,
-tr {
-    text-align: center;
-}
-
-/* RESET STYLES END */
-
-/* FORMS START */
-.form-control {
+/* ANGULAR DROPZONE START | FORM */
+.ng-dz-control {
     display: block;
     width: 100%;
     padding: 1.2rem 1.6rem;
@@ -194,21 +14,16 @@ tr {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.form-control:focus {
-    box-shadow: none;
-    border-color: #31afac;
-}
-
-.form-drop {
+.ng-dz-drop {
     text-align: center;
     cursor: pointer;
     border: 0.1rem dashed #0adcbf;
     transition: all 0.2s;
     position: relative;
-    border-radius: 0.475rem !important;
+    border-radius: 0.8 !important;
 }
 
-.form-drop .form-drop-overlay {
+.ng-dz-drop .ng-dz-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -222,12 +37,12 @@ tr {
     opacity: 0;
 }
 
-.form-drop .form-drop-overlay.show {
+.ng-dz-drop .ng-dz-overlay.show {
     display: block;
     opacity: 1;
 }
 
-.form-drop .form-drop-overlay span {
+.ng-dz-drop .ng-dz-overlay span {
     justify-content: center;
     display: flex;
     font-size: 2.5rem;
@@ -239,30 +54,22 @@ tr {
     z-index: 10000;
 }
 
-.form-drop .form-drop-overlay span i {
-    margin-left: 1rem;
-}
-
-.form-drop:hover {
+.ng-dz-drop:hover {
     background-color: #f1faff;
 }
 
-.form-drop .form-drop-message {
+.ng-dz-drop .ng-dz-message {
     cursor: pointer;
     margin: 0;
     display: flex;
-    text-align: right;
+    text-align: left;
 }
 
-.form-drop .form-drop-message.hidden {
+.ng-dz-drop .ng-dz-message.hidden {
     display: none;
 }
 
-.form-drop .form-drop-message i {
-    font-size: 4.5rem;
-}
-
-.form-drop .form-drop-preview {
+.ng-dz-drop .ng-dz-preview {
     margin: 1.2rem;
     border-radius: 0.8rem;
     background: #fff;
@@ -274,40 +81,45 @@ tr {
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.form-drop-preview.highlight {
+.ng-dz-preview.highlight {
     border: 1px solid #e61515 !important;
     box-shadow: 0 0 5px #fbd5d5;
 }
 
-.form-drop .form-drop-preview:hover .image img {
+.ng-dz-drop .ng-dz-preview:hover .ng-dz-image img {
     transform: scale(1.05, 1.05);
     filter: blur(8px);
 }
 
-.form-drop .form-drop-preview:hover .actions,
-.form-drop .form-drop-preview:focus .actions,
-.form-drop .form-drop-preview:hover .details,
-.form-drop .form-drop-preview:focus .details {
+.ng-dz-drop .ng-dz-preview:hover .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview:focus .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview:hover .ng-dz-details,
+.ng-dz-drop .ng-dz-preview:focus .ng-dz-details {
     display: block;
     opacity: 1;
 }
 
-.form-drop .form-drop-preview .image {
+.ng-dz-drop .ng-dz-preview .ng-dz-image {
     border-radius: 0.8rem;
     z-index: 1;
     overflow: hidden;
     width: 12rem;
     height: 12rem;
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.form-drop .form-drop-preview .image img {
-    display: block;
+.ng-dz-drop .ng-dz-preview .ng-dz-image img {
     transition: all 0.2s;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-.form-drop .form-drop-preview .details {
+.ng-dz-drop .ng-dz-preview .ng-dz-details {
     z-index: 1;
     position: absolute;
     top: 0;
@@ -317,113 +129,93 @@ tr {
     font-size: 13px;
     min-width: 100%;
     max-width: 100%;
-    padding: 2em 1em;
+    padding: 5em 1em;
+    padding-bottom: 0 !important;
     text-align: center;
     color: rgba(0, 0, 0, 0.9);
     line-height: 150%;
 }
 
-.form-drop .form-drop-preview .details .size {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-size {
     margin-bottom: 1em;
     font-size: 16px;
 }
 
-.form-drop .form-drop-preview .details .size span,
-.form-drop .form-drop-preview .details .fileName span {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-size span,
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName span {
     background-color: rgba(255, 255, 255, 0.4);
     padding: 0 0.4em;
     border-radius: 3px;
 }
 
-.form-drop .form-drop-preview .details .fileName {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName {
     white-space: nowrap;
 }
 
-.form-drop .form-drop-preview .details .fileName:hover span {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:hover span {
     border: 1px solid rgba(200, 200, 200, 0.8);
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.form-drop .form-drop-preview .details .fileName:not(:hover) {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:not(:hover) {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.form-drop .form-drop-preview .details .fileName:not(:hover) span {
+.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:not(:hover) span {
     border: 1px solid transparent;
 }
 
-.form-drop .form-drop-preview .actions {
+/* ANGULAR DROPZONE END | FORM */
+
+/* ANGULAR DROPZONE START | BUTTON */
+.ng-dz-drop .ng-dz-preview .ng-dz-actions {
     position: absolute;
-    top: -2rem;
-    right: -1rem;
+    bottom: 0;
+    z-index: 3;
+    left: 50%;
+    transform: translate(-50%, 50%);
     display: none;
 }
 
-.form-drop .form-drop-preview .actions .btn {
-    width: 4rem;
-    height: 4rem;
-    font-size: 2rem !important;
-    line-height: 1.6;
-    z-index: 1;
-}
-
-.drop-error {
-    display: none;
-}
-
-.drop-error.show {
-    display: block;
-}
-
-/* FORMS END */
-
-/* BUTTONS START */
-.btn {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.4rem;
-    margin: 0.5rem 0.8rem;
+.ng-dz-btn {
+    padding: 10px 15px;
+    margin: 0.5rem -0.2rem;
     border: 0;
     position: relative;
-    transition: all 0.2s;
+    transition: all .2s;
+    border-radius: 8px;
+    z-index: 3;
 }
 
-.btn.rounded {
-    border-radius: 50% !important;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.4rem !important;
-    padding: 0.6rem;
-}
-
-.btn.rounded i {
-    line-height: 0;
-}
-
-.btn-remove {
+.ng-dz-btn-remove {
     color: #f1416c;
     background-color: #fff5f8;
 }
 
-.btn-remove:hover {
+.ng-dz-btn-remove:hover {
     color: #ffffff;
     background-color: #f1416c;
 }
 
-/* BUTTONS END */
+/* ANGULAR DROPZONE END | BUTTON */
 
-/* ALERTS START */
-.alert-container {
+
+/* ANGULAR DROPZONE START | ERROR MESSAGE */
+.ng-dz-alert-container {
     background-color: transparent;
     margin: 0 auto;
     width: 100%;
     z-index: 15;
-    padding: 0.4rem 1.6rem;
     margin: 2rem 0;
+    display: none;
 }
 
-.alert-inner {
+.ng-dz-alert-container.show {
+    display: block;
+}
+
+.ng-dz-alert-inner {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -431,7 +223,7 @@ tr {
     margin: 0 auto;
     min-height: 4.5rem;
     text-align: center;
-    border-radius: 10rem;
+    border-radius: 0.8rem;
     flex-direction: row;
     font-size: 1.5rem;
     margin-top: unset;
@@ -441,65 +233,40 @@ tr {
     top: unset;
 }
 
-.alert-lg {
+.ng-dz-alert-lg {
     width: 100%;
 }
 
-.alert-md {
+.ng-dz-alert-md {
     width: 50%;
 }
 
-.alert-sm {
+.ng-dz-alert-sm {
     width: 25%;
 }
 
-.alert-inner.notice {
+.ng-dz-alert-inner.notice {
     background-color: #eff2f7;
     color: #351f65;
 }
 
-.alert-inner.success {
+.ng-dz-alert-inner.success {
     background-color: #f5f7ef;
     color: #20b709;
 }
 
-.alert-inner.error {
+.ng-dz-alert-inner.error {
     background-color: #fbd5d5;
     color: #e61515;
 }
 
-.alert-inner.warning {
+.ng-dz-alert-inner.warning {
     background-color: #ffebcd;
     color: #ffaa00;
 }
 
-.alert-content {
+.ng-dz-alert-content {
     font-weight: 600;
 }
 
-.alert-content::before {
-    font-size: 1.8rem;
-    margin-left: 0.5rem;
-}
-
-.alert-inner.notice .alert-content::before {
-    font-family: "remixicon";
-    content: "\f385";
-}
-
-.alert-inner.success .alert-content::before {
-    font-family: "remixicon";
-    content: "\eb79";
-}
-
-.alert-inner.error .alert-content::before {
-    font-family: "remixicon";
-    content: "\eca1";
-}
-
-.alert-inner.warning .alert-content::before {
-    font-family: "remixicon";
-    content: "\ed19";
-}
-
-/* ALERTS END */
+/* ANGULAR DROPZONE END | ERROR MESSAGE */
