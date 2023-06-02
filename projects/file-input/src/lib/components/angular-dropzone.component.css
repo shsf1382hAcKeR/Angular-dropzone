@@ -14,6 +14,13 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+@media screen and (max-width:768px) {
+    .ng-dz-control {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
 .ng-dz-drop {
     text-align: center;
     cursor: pointer;
@@ -69,7 +76,7 @@
     display: none;
 }
 
-.ng-dz-drop .ng-dz-preview {
+.ng-dz-drop .ng-dz-preview-grid {
     margin: 1.2rem;
     border-radius: 0.8rem;
     background: #fff;
@@ -81,25 +88,25 @@
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.ng-dz-preview.highlight {
+.ng-dz-preview-grid.highlight {
     border: 1px solid #e61515 !important;
     box-shadow: 0 0 5px #fbd5d5;
 }
 
-.ng-dz-drop .ng-dz-preview:hover .ng-dz-image img {
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-image img {
     transform: scale(1.05, 1.05);
     filter: blur(8px);
 }
 
-.ng-dz-drop .ng-dz-preview:hover .ng-dz-actions,
-.ng-dz-drop .ng-dz-preview:focus .ng-dz-actions,
-.ng-dz-drop .ng-dz-preview:hover .ng-dz-details,
-.ng-dz-drop .ng-dz-preview:focus .ng-dz-details {
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview-grid:focus .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-details,
+.ng-dz-drop .ng-dz-preview-grid:focus .ng-dz-details {
     display: block;
     opacity: 1;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-image {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-image {
     border-radius: 0.8rem;
     z-index: 1;
     overflow: hidden;
@@ -111,7 +118,7 @@
     justify-content: center;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-image img {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-image img {
     transition: all 0.2s;
     display: block;
     max-width: 100%;
@@ -119,7 +126,7 @@
     object-fit: contain;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details {
     z-index: 1;
     position: absolute;
     top: 0;
@@ -136,40 +143,135 @@
     line-height: 150%;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-size {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-size {
     margin-bottom: 1em;
     font-size: 16px;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-size span,
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName span {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-size span,
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName span {
     background-color: rgba(255, 255, 255, 0.4);
     padding: 0 0.4em;
     border-radius: 3px;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName {
     white-space: nowrap;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:hover span {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:hover span {
     border: 1px solid rgba(200, 200, 200, 0.8);
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:not(:hover) {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:not(:hover) {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.ng-dz-drop .ng-dz-preview .ng-dz-details .ng-dz-fileName:not(:hover) span {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:not(:hover) span {
     border: 1px solid transparent;
+}
+
+.ng-dz-preview-inline {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    background-color: #fff;
+    border: 2px solid #0000000A;
+    border-radius: 0.8rem;
+    width: 100%;
+    padding: 5px;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list {
+    padding: 20px;
+    flex: 1 1 auto;
+    min-height: 1px
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #535f6b;
+}
+
+@media (max-width: 767px) {
+    .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table {
+        width: 150%;
+    }
+
+    .ng-dz-preview-inline {
+        overflow-x: scroll;
+    }
+}
+
+.table .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table th {
+    vertical-align: bottom;
+    border: 0;
+    font-weight: 500;
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table th:first-child {
+    text-align: left;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr {
+    opacity: 0.5;
+    transition: all ease-in-out 0.2s;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr:hover,
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr.highlight {
+    opacity: 1;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td {
+    vertical-align: middle;
+    text-align: left;
+    padding: 0.75rem 0;
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tr:last-child td {
+    border: none !important;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview {
+    display: flex;
+    align-items: center;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview .img-preview {
+    margin-right: 15px;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview .img-preview img {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
 }
 
 /* ANGULAR DROPZONE END | FORM */
 
 /* ANGULAR DROPZONE START | BUTTON */
-.ng-dz-drop .ng-dz-preview .ng-dz-actions {
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-actions {
     position: absolute;
     bottom: 0;
     z-index: 3;

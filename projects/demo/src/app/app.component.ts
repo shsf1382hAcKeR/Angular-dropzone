@@ -12,6 +12,7 @@ export class AppComponent {
     // allowedFileTypes: ['pdf', 'docx', 'xlsx'],
     // allowedFileTypes: 'noRule',
     maxSize: 2,
+    display: 'inline'
     // defaultImage: 'https://cdn-icons-png.flaticon.com/512/6583/6583130.png',
   };
 }

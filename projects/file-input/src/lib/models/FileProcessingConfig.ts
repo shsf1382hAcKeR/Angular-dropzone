@@ -3,4 +3,5 @@ export interface FileProcessingConfig {
   allowedFileTypes?: string[] | 'noRule';
   maxSize?: number | 'noRule';
   defaultImage?: string | undefined;
+  display?: 'grid' | 'inline';
 }

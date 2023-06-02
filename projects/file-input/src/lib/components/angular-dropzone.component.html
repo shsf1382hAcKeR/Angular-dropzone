@@ -22,8 +22,45 @@
             </ng-container>
         </div>
     </label>
-    <ng-container *ngIf="uploadedFiles.length > 0">
-        <div *ngFor="let file of uploadedFiles" class="ng-dz-preview" [class.highlight]="file.isHighlighted">
+    <ng-container *ngIf="uploadedFiles.length > 0 && config.display === 'inline'">
+        <div class="ng-dz-preview-inline">
+            <div class="ng-dz-preview-inline-list">
+                <div class="ng-dz-preview-inline-table">
+                    <table class="ng-dz-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>File Size</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let file of uploadedFiles" [class.highlight]="file.isHighlighted">
+                                <td>
+                                    <div class="file-preview">
+                                        <div class="img-preview">
+                                            <img [src]="file.imageUrl" [alt]="file.name">
+                                        </div>
+                                        <div>{{ file.name }}</div>
+                                    </div>
+                                </td>
+                                <td>{{ file.size }}</td>
+                                <td>
+                                    <div class="ng-dz-actions">
+                                        <button class="ng-dz-btn ng-dz-btn-remove" (click)="deleteFile(file)">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="uploadedFiles.length > 0 && config.display === 'grid'">
+        <div *ngFor="let file of uploadedFiles" class="ng-dz-preview-grid" [class.highlight]="file.isHighlighted">
             <div class="ng-dz-image">
                 <img [src]="file.imageUrl" [alt]="file.name">
             </div>
