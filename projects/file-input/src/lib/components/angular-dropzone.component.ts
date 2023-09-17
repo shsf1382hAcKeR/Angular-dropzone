@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import {
-  AngularDropzoneService,
+  FileProcessService,
   UploadedFile,
   FileProcessingConfig,
-} from '../services/angular-dropzone.service';
+} from '../services/FileProcess.service';
 
 @Component({
   selector: 'angular-dropzone',
@@ -18,7 +18,7 @@ export class AngularDropzoneComponent {
   hasError = false;
   errorMessage = '';
 
-  constructor(private angularDropzoneService: AngularDropzoneService) {}
+  constructor(private fileProcessService: FileProcessService) {}
 
   showError(message: string) {
     this.hasError = true;
@@ -32,7 +32,7 @@ export class AngularDropzoneComponent {
 
   async processFiles(files: FileList) {
     try {
-      const processedFiles = await this.angularDropzoneService.processFiles(
+      const processedFiles = await this.fileProcessService.processFiles(
         files,
         this.config
       );
@@ -67,7 +67,7 @@ export class AngularDropzoneComponent {
     const index = this.uploadedFiles.indexOf(file);
     if (index !== -1) {
       this.uploadedFiles.splice(index, 1);
-      this.angularDropzoneService.removeUploadedFileName(file.name);
+      this.fileProcessService.removeUploadedFileName(file.name);
 
       // Hide error message if no uploaded files remaining
       if (this.uploadedFiles.length === 0) {

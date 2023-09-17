@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "fileInputBuild": "ng build file-input --watch && cd dist/file-input && npm publish --access=public"
+    "DZ": "ng build file-input --watch && cd dist/file-input && npm publish --access=public"
   },
   "dependencies": {
     "@angular/animations": "~13.3.0",
