@@ -1,6 +1,6 @@
 {
   "name": "@angular/dropzone",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "description": "A custom file input component for Angular applications.",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "fileInputBuild": "ng build file-input --watch && cd dist/file-input && npm publish --access=public"
+    "DZ": "ng build file-input --watch && cd dist/file-input && npm publish --access=public"
   },
   "dependencies": {
     "@angular/animations": "~13.3.0",
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@changesets/cli": "^2.26.1",
     "@shsf1382/file-input": "^0.0.0-watch",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

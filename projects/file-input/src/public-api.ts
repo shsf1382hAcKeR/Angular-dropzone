@@ -2,6 +2,6 @@
  * Public API Surface of file-input
  */
 
-export * from './lib/file-input.service';
-export * from './lib/file-input.component';
-export * from './lib/file-input.module';
+export * from './lib/services/angular-dropzone.service';
+export * from './lib/components/angular-dropzone.component';
+export * from './lib/angular-dropzone.module';

@@ -1,0 +1,374 @@
+/* ANGULAR DROPZONE START | FORM */
+.ng-dz-control {
+    display: block;
+    width: 100%;
+    padding: 1.2rem 1.6rem;
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #5E6278;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 0.1 solid #E1E3EA !important;
+    border-radius: 0.8rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media screen and (max-width:768px) {
+    .ng-dz-control {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.ng-dz-drop {
+    text-align: center;
+    cursor: pointer;
+    border: 0.1rem dashed #0adcbf;
+    transition: all 0.2s;
+    position: relative;
+    border-radius: 0.8 !important;
+}
+
+.ng-dz-drop .ng-dz-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(222, 222, 222, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 2;
+    display: none;
+    transition: all 0.2s;
+    opacity: 0;
+}
+
+.ng-dz-drop .ng-dz-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.ng-dz-drop .ng-dz-overlay span {
+    justify-content: center;
+    display: flex;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+    z-index: 10000;
+}
+
+.ng-dz-drop:hover {
+    background-color: #f1faff;
+}
+
+.ng-dz-drop .ng-dz-message {
+    cursor: pointer;
+    margin: 0;
+    display: flex;
+    text-align: left;
+}
+
+.ng-dz-drop .ng-dz-message.hidden {
+    display: none;
+}
+
+.ng-dz-drop .ng-dz-preview-grid {
+    margin: 1.2rem;
+    border-radius: 0.8rem;
+    background: #fff;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    min-height: 100px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.ng-dz-preview-grid.highlight {
+    border: 1px solid #e61515 !important;
+    box-shadow: 0 0 5px #fbd5d5;
+}
+
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-image img {
+    transform: scale(1.05, 1.05);
+    filter: blur(8px);
+}
+
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview-grid:focus .ng-dz-actions,
+.ng-dz-drop .ng-dz-preview-grid:hover .ng-dz-details,
+.ng-dz-drop .ng-dz-preview-grid:focus .ng-dz-details {
+    display: block;
+    opacity: 1;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-image {
+    border-radius: 0.8rem;
+    z-index: 1;
+    overflow: hidden;
+    width: 12rem;
+    height: 12rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-image img {
+    transition: all 0.2s;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    display: none;
+    font-size: 13px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 5em 1em;
+    padding-bottom: 0 !important;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 150%;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-size {
+    margin-bottom: 1em;
+    font-size: 16px;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-size span,
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName span {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 0 0.4em;
+    border-radius: 3px;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName {
+    white-space: nowrap;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:hover span {
+    border: 1px solid rgba(200, 200, 200, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:not(:hover) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-details .ng-dz-fileName:not(:hover) span {
+    border: 1px solid transparent;
+}
+
+.ng-dz-preview-inline {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    background-color: #fff;
+    border: 2px solid #0000000A;
+    border-radius: 0.8rem;
+    width: 100%;
+    padding: 5px;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list {
+    padding: 20px;
+    flex: 1 1 auto;
+    min-height: 1px
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #535f6b;
+}
+
+@media (max-width: 767px) {
+    .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table {
+        width: 150%;
+    }
+
+    .ng-dz-preview-inline {
+        overflow-x: scroll;
+    }
+}
+
+.table .ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table th {
+    vertical-align: bottom;
+    border: 0;
+    font-weight: 500;
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table th:first-child {
+    text-align: left;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr {
+    opacity: 0.5;
+    transition: all ease-in-out 0.2s;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr:hover,
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tbody tr.highlight {
+    opacity: 1;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td {
+    vertical-align: middle;
+    text-align: left;
+    padding: 0.75rem 0;
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table tr:last-child td {
+    border: none !important;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview {
+    display: flex;
+    align-items: center;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview .img-preview {
+    margin-right: 15px;
+}
+
+.ng-dz-preview-inline .ng-dz-preview-inline-list .ng-dz-preview-inline-table .ng-dz-table td .file-preview .img-preview img {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+}
+
+/* ANGULAR DROPZONE END | FORM */
+
+/* ANGULAR DROPZONE START | BUTTON */
+.ng-dz-drop .ng-dz-preview-grid .ng-dz-actions {
+    position: absolute;
+    bottom: 0;
+    z-index: 3;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: none;
+}
+
+.ng-dz-btn {
+    padding: 10px 15px;
+    margin: 0.5rem -0.2rem;
+    border: 0;
+    position: relative;
+    transition: all .2s;
+    border-radius: 8px;
+    z-index: 3;
+}
+
+.ng-dz-btn-remove {
+    color: #f1416c;
+    background-color: #fff5f8;
+}
+
+.ng-dz-btn-remove:hover {
+    color: #ffffff;
+    background-color: #f1416c;
+}
+
+/* ANGULAR DROPZONE END | BUTTON */
+
+
+/* ANGULAR DROPZONE START | ERROR MESSAGE */
+.ng-dz-alert-container {
+    background-color: transparent;
+    margin: 0 auto;
+    width: 100%;
+    z-index: 15;
+    margin: 2rem 0;
+    display: none;
+}
+
+.ng-dz-alert-container.show {
+    display: block;
+}
+
+.ng-dz-alert-inner {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    min-height: 4.5rem;
+    text-align: center;
+    border-radius: 0.8rem;
+    flex-direction: row;
+    font-size: 1.5rem;
+    margin-top: unset;
+    max-width: 120rem;
+    opacity: 0.9;
+    padding: 0.8rem 3.2rem;
+    top: unset;
+}
+
+.ng-dz-alert-lg {
+    width: 100%;
+}
+
+.ng-dz-alert-md {
+    width: 50%;
+}
+
+.ng-dz-alert-sm {
+    width: 25%;
+}
+
+.ng-dz-alert-inner.notice {
+    background-color: #eff2f7;
+    color: #351f65;
+}
+
+.ng-dz-alert-inner.success {
+    background-color: #f5f7ef;
+    color: #20b709;
+}
+
+.ng-dz-alert-inner.error {
+    background-color: #fbd5d5;
+    color: #e61515;
+}
+
+.ng-dz-alert-inner.warning {
+    background-color: #ffebcd;
+    color: #ffaa00;
+}
+
+.ng-dz-alert-content {
+    font-weight: 600;
+}
+
+/* ANGULAR DROPZONE END | ERROR MESSAGE */

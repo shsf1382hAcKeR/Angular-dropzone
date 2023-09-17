@@ -1,41 +1,49 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { FileProcessingService, UploadedFile } from './file-input.service';
+import {
+  FileProcessService,
+  UploadedFile,
+  FileProcessingConfig,
+} from '../services/FileProcess.service';
 
 @Component({
-  selector: 'app-file-input',
-  templateUrl: './file-input.component.html',
-  styleUrls: ['./file-input.component.css'],
+  selector: 'angular-dropzone',
+  templateUrl: './angular-dropzone.component.html',
+  styleUrls: ['./angular-dropzone.component.css'],
 })
-export class FileInputComponent {
-  @Input() config: any = {};
+export class AngularDropzoneComponent {
+  @Input() config: FileProcessingConfig = {};
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible = false;
   uploadedFiles: UploadedFile[] = [];
   hasError = false;
   errorMessage = '';
 
-  constructor(private fileProcessingService: FileProcessingService) {}
+  constructor(private fileProcessService: FileProcessService) {}
 
   showError(message: string) {
     this.hasError = true;
     this.errorMessage = message;
   }
 
+  hideError() {
+    this.hasError = false;
+    this.errorMessage = '';
+  }
+
   async processFiles(files: FileList) {
     try {
-      const processedFiles = await this.fileProcessingService.processFiles(
+      const processedFiles = await this.fileProcessService.processFiles(
         files,
         this.config
       );
       this.uploadedFiles = [...this.uploadedFiles, ...processedFiles];
-      this.hasError = false;
-      this.errorMessage = '';
+      this.hideError(); // Hide error message after successful upload
     } catch (error: any) {
       this.showError(error.message);
     }
   }
 
-  getFileTypeText(allowedFileTypes: string[]): string {
+  getFileTypeText(allowedFileTypes: string[] | undefined): string {
     if (allowedFileTypes && allowedFileTypes.length > 0) {
       return allowedFileTypes.join(', ').toUpperCase();
     } else {
@@ -59,7 +67,12 @@ export class FileInputComponent {
     const index = this.uploadedFiles.indexOf(file);
     if (index !== -1) {
       this.uploadedFiles.splice(index, 1);
-      this.fileProcessingService.removeUploadedFileName(file.name);
+      this.fileProcessService.removeUploadedFileName(file.name);
+
+      // Hide error message if no uploaded files remaining
+      if (this.uploadedFiles.length === 0) {
+        this.hideError();
+      }
     }
   }
 
