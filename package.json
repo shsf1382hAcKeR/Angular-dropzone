@@ -1,5 +1,5 @@
 {
-  "name": "@angular/dropzone",
+  "name": "@shsf1382/file-input",
   "version": "1.4.0",
   "description": "A custom file input component for Angular applications.",
   "scripts": {
