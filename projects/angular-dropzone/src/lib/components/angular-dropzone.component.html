@@ -59,7 +59,7 @@
             </div>
         </div>
     </ng-container>
-    <ng-container *ngIf="uploadedFiles.length > 0 && config.display === 'grid'">
+    <ng-container *ngIf="uploadedFiles.length > 0 && (config.display === 'grid' || config.display === undefined)">
         <div *ngFor="let file of uploadedFiles" class="ng-dz-preview-grid" [class.highlight]="file.isHighlighted">
             <div class="ng-dz-image">
                 <img [src]="file.imageUrl" [alt]="file.name">

@@ -30,6 +30,10 @@ export class FileProcessService {
   ): Promise<UploadedFile[]> {
     const mergedConfig: FileProcessingConfig = { ...defaultConfig, ...config };
 
+    if (!mergedConfig.display) {
+      mergedConfig.display = 'grid';
+    }
+
     const maxFiles =
       mergedConfig.maxFiles === 'noRule'
         ? Infinity

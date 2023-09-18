@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FileProcessingConfig } from 'file-input';
+import { FileProcessingConfig } from '@shsf1382/angular-dropzone';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,9 +10,8 @@ export class AppComponent {
   myFileInputConfig: FileProcessingConfig = {
     maxFiles: 5,
     // allowedFileTypes: ['pdf', 'docx', 'xlsx'],
-    // allowedFileTypes: 'noRule',
+    allowedFileTypes: 'noRule',
     maxSize: 2,
-    display: 'inline',
-    defaultImage: 'https://cdn-icons-png.flaticon.com/512/6583/6583130.png',
+    defaultImage: 'https://example-url.com/example.png',
   };
 }

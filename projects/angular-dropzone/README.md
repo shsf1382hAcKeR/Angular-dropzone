@@ -1,5 +1,7 @@
 # Angular DropZone
 
+_Note: Previous versions of this package were published within a different [NPM registry](https://www.npmjs.com/package/@shsf1382/file-input). The current version is the most up-to-date and actively maintained._
+
 ## _Version 1.4.3_
 
 Click [here](/projects/angular-dropzone/.changeset/CHANGELOG.md) to see the Changelog.

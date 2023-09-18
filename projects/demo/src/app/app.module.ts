@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularDropzoneModule } from 'file-input';
 import { AppComponent } from './app.component';
+import { AngularDropzoneModule } from '@shsf1382/angular-dropzone';
+// import { AngularDropzoneModule } from '../../../angular-dropzone/src/lib/angular-dropzone.module';
 
 @NgModule({
   declarations: [AppComponent],

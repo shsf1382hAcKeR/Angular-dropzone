@@ -5,4 +5,5 @@ export const defaultConfig: FileProcessingConfig = {
   allowedFileTypes: undefined,
   maxSize: 2,
   defaultImage: undefined,
+  display: 'grid',
 };

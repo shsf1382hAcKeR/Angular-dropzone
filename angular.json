@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "file-input": {
+    "angular-dropzone": {
       "projectType": "library",
-      "root": "projects/file-input",
-      "sourceRoot": "projects/file-input/src",
+      "root": "projects/angular-dropzone",
+      "sourceRoot": "projects/angular-dropzone/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/file-input/ng-package.json"
+            "project": "projects/angular-dropzone/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/file-input/tsconfig.lib.prod.json"
+              "tsConfig": "projects/angular-dropzone/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/file-input/tsconfig.lib.json"
+              "tsConfig": "projects/angular-dropzone/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,9 +27,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/file-input/src/test.ts",
-            "tsConfig": "projects/file-input/tsconfig.spec.json",
-            "karmaConfig": "projects/file-input/karma.conf.js"
+            "main": "projects/angular-dropzone/src/test.ts",
+            "tsConfig": "projects/angular-dropzone/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-dropzone/karma.conf.js"
           }
         }
       }
@@ -138,5 +138,5 @@
       }
     }
   },
-  "defaultProject": "file-input"
+  "defaultProject": "angular-dropzone"
 }
