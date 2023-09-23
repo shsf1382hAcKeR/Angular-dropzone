@@ -4,7 +4,7 @@ _Note: Previous versions of this package were published within a different [NPM 
 
 ## _Version 1.4.4_
 
-Click [here](/projects/angular-dropzone/.changeset/CHANGELOG.md) to see the Changelog.
+Click [here](https://github.com/shsf1382hAcKeR/Angular-dropzone/blob/Main/projects/angular-dropzone/.changeset/CHANGELOG.md) to see the Changelog.
 
 ## Getting Started
 
