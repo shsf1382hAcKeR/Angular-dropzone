@@ -1,6 +1,6 @@
 {
   "name": "@shsf1382/angular-dropzone",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A custom file input component for Angular applications.",
   "scripts": {
     "ng": "ng",

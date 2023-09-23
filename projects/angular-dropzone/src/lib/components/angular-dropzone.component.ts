@@ -1,4 +1,11 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import {
   FileProcessService,
   UploadedFile,
@@ -12,6 +19,9 @@ import {
 })
 export class AngularDropzoneComponent {
   @Input() config: FileProcessingConfig = {};
+  @Output() onChangeFiles: EventEmitter<UploadedFile[]> = new EventEmitter<
+    UploadedFile[]
+  >();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   fileInputVisible = false;
   uploadedFiles: UploadedFile[] = [];
@@ -37,7 +47,8 @@ export class AngularDropzoneComponent {
         this.config
       );
       this.uploadedFiles = [...this.uploadedFiles, ...processedFiles];
-      this.hideError(); // Hide error message after successful upload
+      this.hideError();
+      this.onChangeFiles.emit(processedFiles);
     } catch (error: any) {
       this.showError(error.message);
     }

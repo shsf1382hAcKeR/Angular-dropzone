@@ -1,11 +1,12 @@
 # @shsf1382/angular-dropzone
 
-## Version 1.4.3
+## Version 1.4.4
 
 ### New Patches
 
 - Fix Bugs in Production
 - Set Default `config.display` to `'Grid'`
+- Add EventEmitter To Access File Input's Events
 
 ## Version 1.4.0
 

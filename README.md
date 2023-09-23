@@ -1,6 +1,6 @@
 # Angular DropZone
 
-## _Version 1.4.3_
+## _Version 1.4.4_
 
 Click [here](/projects/angular-dropzone/.changeset/CHANGELOG.md) to see the Changelog.
 
